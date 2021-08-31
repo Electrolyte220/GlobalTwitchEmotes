@@ -12,7 +12,7 @@ Currently supports Chrome, Firefox, and Opera. Edge support is planned, Safari s
 
 ## Dev Version
 
-The dev version of this extension contains fixes for twitch global and channel emotes, support for 7TV emotes, as well as a couple of other fixes. If you encounter any issues using this dev version, please REPORT IT [HERE](https://github.com/Electrolyte220/GlobalTwitchEmotes/issues), rather than on the official page. (Until the PRs get merged).
+The dev version of this extension contains fixes for twitch global and channel emotes, support for 7TV emotes, as well as a couple of other fixes. If you encounter any issues using this dev version, please [REPORT IT HERE](https://github.com/Electrolyte220/GlobalTwitchEmotes/issues), rather than on the official page. (Until the PRs get merged).
 
 Also, if you are running the dev version of this extension, you will have to supply your own twitch client id and client secret which can be made [here](https://dev.twitch.tv/console/apps). Look at the twitchHelix.js file in `src/common/background/js/` for variables to change.
 
@@ -34,17 +34,25 @@ Global Twitch Emotes is built using Node.js. Download and install the latest ver
 
     `webkit` | `firefox` | `edge`
     
-    | **Parameter** | **Applicable Browser(s)**                         |
-    |---------------|---------------------------------------------------|
-    | webkit        | Chromium-based browsers (Chrome, Opera, etc.)     |
-    | firefox       | Firefox                                           |
-    | edge          | Edge                                              |
+    | **Parameter** | **Applicable Browser(s)**                                                  |
+    |---------------|----------------------------------------------------------------------------|
+    | webkit        | Chromium-based browsers (Chrome, Opera, Edge (Chromium version), etc.)     |
+    | firefox       | Firefox                                                                    |
+    | edge          | Edge (NON-CHROMIUM VERSION)                                                |
     
     *The script will build for all browser types if the browser parameter is not specified.*
 
 ##  Installation
 
-Built extensions can be found in the newly-generated `build` directory. You can side-load the unpacked extension in order to run it in your browser. Please refer to your browser's extension installation guide for details.
+Built extensions can be found in the newly-generated `build` directory. You can side-load the unpacked extension in order to run it in your browser See below for instructions.
+
+**Chromium-based browsers:** Navigate to `chrome://extensions`. At the top right enable developer mode, then click `Load unpacked`, and select `rootDir/build/webkit` as the folder.
+
+**Firefox:** Navigate to `about:debugging#/runtime/this-firefox`. Click `Load Temporary Add-on...`, and select `rootDir/build/firefox/manifest.json` as the file.
+
+**Edge (Chromium version):** Navigate to `edge://extensions`. At the top left click the three bars and enable developer mode at the bottom. Click `Load unpacked`, and select `rootDir/build/webkit` as the folder.
+
+**Edge (Non-chromium version):** You're on your own. Nobody uses that shit anyways LuL
 
 ##  Testing
 
@@ -52,4 +60,4 @@ In the parent directory, run `npm run-script test` to run all test files found i
     
 ##  Support
 
-For inquiries, please either [contact me](mailto:me@itsmo.me) or [open an issue](https://github.com/melalawi/GlobalTwitchEmotes/issues/new).
+If you encounter any issues using the dev version [open an issue](https://github.com/Electrolyte220/GlobalTwitchEmotes/issues/new).
