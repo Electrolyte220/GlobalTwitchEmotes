@@ -7,11 +7,18 @@ function parseEmotes(json) {
 
     for (var i = 0; i < json.length; ++i) {
         var emote = json[i];
-
-        result[emote.name] = {
-            url: BASE_EMOTE_URL.replace('{EMOTE_ID}', emote.id),
-            channel: '7TV Emote'
-        };
+        if (emote.visibility_simple.includes('ZERO_WIDTH')) {
+            result[emote.name] = {
+                url: BASE_EMOTE_URL.replace('{EMOTE_ID}', emote.id),
+                channel: '7TV Emote',
+                zerowidth: true
+            };
+        } else {
+            result[emote.name] = {
+                url: BASE_EMOTE_URL.replace('{EMOTE_ID}', emote.id),
+                channel: '7TV Emote'
+            };
+        }
     }
 
     return result;

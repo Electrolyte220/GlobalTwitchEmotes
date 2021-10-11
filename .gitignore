@@ -82,6 +82,9 @@ jspm_packages
 
 .history
 .idea/
+.vscode
+.settings
+.project
 bin/
 build/
 release/

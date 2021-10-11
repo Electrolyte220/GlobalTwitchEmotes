@@ -3,7 +3,7 @@ var storageHelper = require('storageHelper');
 var twitchHelix = require('./twitchHelix'); 
 
 
-const CACHE_REFRESH_INTERVAL = 1000 * 60 * 60 * 24 * 14;
+const CACHE_REFRESH_INTERVAL = 1000 * 60 * 60 * 24;
 const EMOTE_REFRESH_INTERVAL = 1000 * 60 * 30;
 const EMOTE_SETS = {
     bttvChannels: require('./emoteSets/bttvChannels'),
