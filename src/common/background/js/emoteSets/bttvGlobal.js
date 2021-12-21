@@ -8,7 +8,10 @@ function parseEmotes(json) {
     for (var i = 0; i < json.length; ++i) {
         var emote = json[i];
 
-        if (emote.code === 'cvHazmat' || emote.code === 'cvMask') {
+        if (emote.code === 'CandyCane' || emote.code === 'cvHazmat' || 
+            emote.code === 'cvMask' || emote.code === 'IceCold' ||
+            emote.code === 'ReinDeer' || emote.code === 'SantaHat' ||
+            emote.code === 'SoSnowy' || emote.code === 'TopHat') {
             result[emote.code] = {
                 url: BASE_EMOTE_URL.replace('{EMOTE_ID}', emote.id),
                 channel: 'BetterTTV Emote',
