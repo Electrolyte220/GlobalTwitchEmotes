@@ -314,10 +314,10 @@ function fetchAndCacheEmotesFromTwitchServer(set, url) {
                             console.log('Cached copy of "' + set + '" successfully.');
                         });
                         resolve(set);
-                    }).catch(function (error) {
-                        console.error('Failed to retrieve "' + set + '" from ' + url + channel_id + ' - ' + error);
-                        reject(set);
                     });
+                }).catch(error => {
+                    console.error('Failed to retrieve "' + set + '" from ' + url + set.substr(set.indexOf(':') + 1, set.length) + ' - ' + error);
+                    reject(set);
                 });
             }
         });

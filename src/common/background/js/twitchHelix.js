@@ -36,9 +36,8 @@ function getChannelIdFromName(channel_name) {
                 console.log(responseJSON);
     
                 resolve(responseJSON.data[0].id);
-            }).catch(function(error) {
-                console.error(error);
-    
+            }).catch(function() {
+                console.error('Error resolving channel id for: ' + channel_name);
                 reject(channel_name);
             });
         }).catch(reject);
