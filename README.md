@@ -44,11 +44,11 @@ Global Twitch Emotes is built using Node.js. Download and install the latest ver
 
 ##  Installation
 
-Built extensions can be found in the newly-generated `build` directory. You can side-load the unpacked extension in order to run it in your browser See below for instructions.
+Built extensions can be found in the newly-generated `build` directory. You can side-load the unpacked extension in order to run it in your browser. See below for instructions.
 
 **Chromium-based browsers:** Navigate to `chrome://extensions`. At the top right enable developer mode, then click `Load unpacked`, and select `rootDir/build/webkit` as the folder.
 
-**Firefox:** Navigate to `about:debugging#/runtime/this-firefox`. Click `Load Temporary Add-on...`, and select `rootDir/build/firefox/manifest.json` as the file.
+**Firefox:** Unfortunately, you cannot use unsigned extensions in Firefox. However, you can still add it temporarily, at the cost of you needing to re-add it everytime you close and re-open Firefox. Navigate to `about:debugging#/runtime/this-firefox`. Click `Load Temporary Add-on...`, and select `rootDir/build/firefox/manifest.json` as the file.
 
 **Edge (Chromium version):** Navigate to `edge://extensions`. At the top left click the three bars and enable developer mode at the bottom. Click `Load unpacked`, and select `rootDir/build/webkit` as the folder.
 
