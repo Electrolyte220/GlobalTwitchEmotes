@@ -65,6 +65,15 @@ function setCacheEntry(key, emotes, date) {
     });
 }
 
+function setTwitchChannelCacheEntry(key, emotes, date, channel_id) {
+    return db.cache.put({
+        set: key,
+        emotes: emotes,
+        date: date,
+        channel_id: channel_id
+    });
+}
+
 function getAllSettings() {
     return new Promise(function(resolve, reject) {
         Promise.all([db.customEmotes.toArray(), browser.loadStorage('sync')]).then(function(data) {
@@ -264,6 +273,7 @@ initialize();
 module.exports = {
     getCacheEntry: getCacheEntry,
     setCacheEntry: setCacheEntry,
+    setTwitchChannelCacheEntry: setTwitchChannelCacheEntry,
     getAllSettings: getAllSettings,
     setAllSettings: setAllSettings,
     setSettingsEntry: setSettingsEntry,

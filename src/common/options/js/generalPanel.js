@@ -1,5 +1,6 @@
 var $ = require('jquery');
 var MessageClient = require('messageClient');
+var twitchHelix = require('../../background/js/twitchHelix'); 
 
 
 const INTERNAL_TO_READABLE_SET_NAMES = {
@@ -18,7 +19,7 @@ const INTERNAL_SET_TO_SET_URL = {
     bttvGlobal: 'https://api.betterttv.net/2/emotes',
     ffzGlobal: 'https://www.frankerfacez.com/channel/__ffz_global',
     seventvGlobal: 'https://api.7tv.app/v2/emotes/global',
-    twitchChannels: 'https://twitchemotes.com/search?query=%s',
+    twitchChannels: 'https://twitchemotes.com/channels/%s',
     bttvChannels: 'https://api.betterttv.net/2/channels/%s',
     ffzChannels: 'https://www.frankerfacez.com/channel/%s',
     seventvChannels: 'https://api.7tv.app/v2/users/%s/emotes'
@@ -66,7 +67,7 @@ function onMessage(message) {
     }
 }
 
-function loadEmoteSetsIntoTable(emotes) {
+async function loadEmoteSetsIntoTable(emotes) {
     for (var key in emotes) {
         if (emotes.hasOwnProperty(key)) {
             var set = emotes[key];
@@ -77,8 +78,15 @@ function loadEmoteSetsIntoTable(emotes) {
 
             var readableSetName = generateReadableSetName(key);
             var ageInfo = getSetAge(set.date);
-
-            var $entryName = $('<div>').append($('<a>', {target: '_blank', href: generateSetURL(key), title: readableSetName, alt: readableSetName}).text(readableSetName));
+            if(key.includes('twitchChannels')) {
+                if(!set.hasOwnProperty('channel_id')) {
+                var $entryName = $('<div>').append($('<a>', { target: '_blank', href: await generateTwitchSetURL(key), title: readableSetName, alt: readableSetName }).text(readableSetName));
+            } else {
+                var $entryName = $('<div>').append($('<a>', { target: '_blank', href: INTERNAL_SET_TO_SET_URL['twitchChannels'].replace('%s', set.channel_id), title: readableSetName, alt: readableSetName }).text(readableSetName));
+            }
+        } else {
+                var $entryName = $('<div>').append($('<a>', {target: '_blank', href: generateSetURL(key), title: readableSetName, alt: readableSetName}).text(readableSetName));
+            }
             var $entryAge = $('<div>', {title: ageInfo.altTextValue, alt: ageInfo.altTextValue}).text(ageInfo.displayValue);
 
             $nameColumn.append($entryName);
@@ -105,6 +113,12 @@ function generateSetURL(set) {
 
         return INTERNAL_SET_TO_SET_URL[set[0]].replace('%s', set[1]);
     }
+}
+
+async function generateTwitchSetURL(key) {
+    let set = key.split(':');
+        let channel_id = await twitchHelix.getChannelIdFromName(set[1]);
+        return INTERNAL_SET_TO_SET_URL[set[0]].replace('%s', channel_id);
 }
 
 function getSetAge(date) {
