@@ -148,6 +148,10 @@ function applyEmoteSearchResults() {
 }
 
 function parseEmoteString(node, index, emoteKey, emoteChannel, emoteURL, emoteZeroWidth, unicodeEmoji) {
+    if (node.parentNode === null) {
+        return;
+    }
+    
     var parent = node.parentNode;
     var nodeText = node.nodeValue;
     var postEmoteTextNode = null;
@@ -176,7 +180,11 @@ function parseEmoteString(node, index, emoteKey, emoteChannel, emoteURL, emoteZe
 
     // If there's no text before the new emote, remove it
     if (index === 0) {
-        parent.removeChild(node);
+        if(window.location.href.indexOf('www.youtube.com') === -1 && window.location.href.indexOf('music.youtube.com') === -1) {
+            parent.removeChild(node);
+        } else {
+        node.nodeValue = ' ';
+        }
     } else {
         node.nodeValue = nodeText.substring(0, index);
     }

@@ -27,6 +27,7 @@ var currentlyIteratingThroughTreeWalkers = false;
 var currentlyIteratingThroughNodes = false;
 var iterateTreeWalkersCallback;
 var iterateNodesCallback;
+var pageURL = '';
 
 
 function startMutationObserver(callback) {
@@ -39,6 +40,13 @@ function startMutationObserver(callback) {
 }
 
 function onPageChange(changes) {
+    //Special case for youtube, since the page doesn't fully 'refresh' when changing videos
+    if(CURRENT_HOSTNAME === 'www.youtube.com' || CURRENT_HOSTNAME === 'music.youtube.com') {
+        if(pageURL != '' && pageURL != window.location.href) {
+            fixModifiedNodes();
+        }
+    }
+
     for (var i = 0; i < changes.length; ++i) {
         var pageChange = changes[i];
 
@@ -56,6 +64,24 @@ function onPageChange(changes) {
             }
         }
     }
+    pageURL = window.location.href;
+}
+
+function fixModifiedNodes() {
+    (function scanSubTree(node) {
+        if (node.childNodes.length)
+            for (var i = 0; i < node.childNodes.length; i++)
+                scanSubTree(node.childNodes[i]);
+        else if (node.className === "GTEEmote") {
+            while (node.nextSibling != null && (node.nextSibling.isGTENode || node.nextSibling.className === 'GTEEmote')) {
+                node.nextSibling.remove();
+            }
+            if(node.previousSibling != null && node.previousSibling.isGTENode) {
+                delete node.previousSibling.isGTENode;
+            }  
+            node.remove();
+        }
+    })(document.body);
 }
 
 function addMutatedNode(node) {
