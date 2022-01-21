@@ -14,7 +14,7 @@ function parseEmotes(json) {
 
                 result[emote.name] = {
                     url: 'https:' + emote.urls['1'],
-                    channel: 'FrankerFaceZ Emote'
+                    channel: 'FFZ Global Emote'
                 };
             }
         }

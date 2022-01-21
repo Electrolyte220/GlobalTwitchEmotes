@@ -203,7 +203,7 @@ function retrieveCachedEmotes(set) {
 
                     resolve(set);
                 } else {
-                    console.log('Cached copy of "' + set + '" found but are over two weeks old.');
+                    console.log('Cached copy of "' + set + '" found but are over one day old.');
 
                     reject(set);
                 }
@@ -242,7 +242,7 @@ function fetchAndCacheEmotesFromServer(set, url) {
             var parserModule = set.indexOf(':') !== -1 ? set.substr(0, set.indexOf(':')) : set;
 
             var emotes = {
-                emotes: EMOTE_SETS[parserModule].parseEmotes(responseJSON),
+                emotes: EMOTE_SETS[parserModule].parseEmotes(responseJSON, set.substr((set.indexOf(':') + 1), set.length)),
                 date: Date.now()
             };
 
@@ -304,7 +304,8 @@ function fetchAndCacheEmotesFromTwitchServer(set, url) {
                         var parserModule = set.indexOf(':') !== -1 ? set.substr(0, set.indexOf(':')) : set;
                         var emotes = {
                             emotes: EMOTE_SETS[parserModule].parseEmotes(jsonData, set.substr(set.indexOf(':') + 1, set.length)),
-                            date: Date.now()
+                            date: Date.now(),
+                            channel_id: channel_id
                         };
                         console.log('Successfully retrieved "' + set + '" from twitch\'s server. Caching...');
 

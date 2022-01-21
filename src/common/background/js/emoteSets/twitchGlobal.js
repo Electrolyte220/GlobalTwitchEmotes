@@ -12,7 +12,7 @@ function parseEmotes(json) {
 
         result[name] = {
             url: BASE_EMOTE_URL.replace('{EMOTE_ID}', id),
-            channel: ''
+            channel: 'Global Twitch Emote'
         };
     }
     return result;

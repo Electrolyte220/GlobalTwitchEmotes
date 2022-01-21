@@ -2,7 +2,7 @@ const URL = 'https://api.betterttv.net/3/cached/users/twitch';
 const BASE_EMOTE_URL = 'https://cdn.betterttv.net/emote/{EMOTE_ID}/1x'
 
 
-function parseEmotes(json) {
+function parseEmotes(json, channelName) {
     var result = {};
     var emotes = json.channelEmotes.concat(json.sharedEmotes);
 
@@ -11,7 +11,7 @@ function parseEmotes(json) {
 
         result[emote.code] = {
             url: BASE_EMOTE_URL.replace('{EMOTE_ID}', emote.id),
-            channel: 'BetterTTV Emote'
+            channel: `${channelName} BTTV Emote`
         };
     }
 

@@ -14,13 +14,13 @@ function parseEmotes(json) {
             emote.code === 'SoSnowy' || emote.code === 'TopHat') {
             result[emote.code] = {
                 url: BASE_EMOTE_URL.replace('{EMOTE_ID}', emote.id),
-                channel: 'BetterTTV Emote',
+                channel: 'Global BTTV Emote',
                 zerowidth: true
             };
         } else {
             result[emote.code] = {
                 url: BASE_EMOTE_URL.replace('{EMOTE_ID}', emote.id),
-                channel: 'BetterTTV Emote'
+                channel: 'Global BTTV Emote'
             };
         }
     }

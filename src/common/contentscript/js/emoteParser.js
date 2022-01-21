@@ -148,18 +148,15 @@ function applyEmoteSearchResults() {
 }
 
 function parseEmoteString(node, index, emoteKey, emoteChannel, emoteURL, emoteZeroWidth, unicodeEmoji) {
-    if (node.parentNode === null) {
+    if (node === null) {
         return;
     }
-    
+
     var parent = node.parentNode;
     var nodeText = node.nodeValue;
     var postEmoteTextNode = null;
     var emoteNode;
 
-    if (parent === null) {
-        return;
-    }
 
     emoteNode = emoteURL ? createEmoteImage(emoteKey, emoteChannel, emoteURL, emoteZeroWidth) : createUnicodeEmoji(emoteKey, emoteChannel, unicodeEmoji);
 
@@ -212,17 +209,7 @@ function createEmoteImage(emoteKey, emoteChannel, emoteURL, emoteZeroWidth) {
 }
 
 function generateTipsyAlt(emoteKey, emoteChannel) {
-    var result;
-
-    if (emoteChannel === 'FrankerFaceZ Emote' || emoteChannel === 'BetterTTV Emote' || emoteChannel === 'Custom GTE Emote') {
-        result = 'Emote: ' + emoteKey + '\n' + emoteChannel;
-    } else if (emoteChannel !== '') {
-        result = 'Emote: ' + emoteKey + '\n' + 'Channel: ' + emoteChannel;
-    } else {
-        result = emoteKey;
-    }
-
-    return result;
+    return `Emote: ${emoteKey} \n Channel: ${emoteChannel}`;
 }
 
 function createUnicodeEmoji(emoteKey, emoteChannel, unicodeEmoji) {
