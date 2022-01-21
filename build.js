@@ -8,7 +8,7 @@ var Promise = require('promise');
 var pug = require('pug');
 var Stream = require('stream');
 var stylus = require('stylus');
-var zip = require('zip-folder');
+var zipafolder = require('zip-a-folder');
 
 
 var BIN_DIRECTORY = __dirname + '/bin/{browser}';
@@ -212,10 +212,12 @@ function zipFolder(source, destination) {
     return new Promise(function(resolve, reject) {
         console.log('Zipping...');
 
-        zip(source, destination, function() {
+        zipafolder.zip(source, destination).then(() => {
             console.log('Zipped "' + source + '" to "' + destination + '"');
 
             resolve();
+        }).catch (error => {
+            console.log(error);
         });
     });
 }
