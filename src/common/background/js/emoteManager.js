@@ -276,8 +276,9 @@ function fetchAndCacheEmotesFromTwitchServer(set, url) {
                     }
                 }).then(function (jsonData) {
                     var parserModule = set.indexOf(':') !== -1 ? set.substr(0, set.indexOf(':')) : set;
+                    EMOTE_SETS[parserModule].parseEmotes(jsonData).then(emoteData => {
                     var emotes = {
-                        emotes: EMOTE_SETS[parserModule].parseEmotes(jsonData),
+                        emotes: emoteData,
                         date: Date.now()
                     };
                     console.log('Successfully retrieved "' + set + '" from twitch\'s server. Caching...');
@@ -292,6 +293,7 @@ function fetchAndCacheEmotesFromTwitchServer(set, url) {
                     console.error('Failed to retrieve "' + set + '" from ' + url + ' - ' + error);
                     reject(set);
                 });
+            });
             } else {
                 twitchHelix.getChannelIdFromName(set.substr(set.indexOf(':') + 1, set.length)).then(function (channel_id) {
                     httpRequest.get(url + channel_id, {
